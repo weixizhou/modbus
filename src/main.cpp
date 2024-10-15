@@ -29,11 +29,11 @@
 */
 
 
-#define SLAVE      SLAVE_7
+#define SLAVE      SLAVE_4
 #define READADDR   READADDRESSH
 #define WRITEADDR  WRITEADDRESS
-#define READNB     READNUMBER_7
-#define WRITENB    WRITENUMBER_7
+#define READNB     READNUMBER_5
+#define WRITENB    WRITENUMBER_5
 
 void delta_data()
 {
@@ -43,8 +43,8 @@ void delta_data()
     int reg = ModBusData_Write_And_Read(SLAVE, WRITEADDRESS, WRITENB, write_data, READADDR, READNB, read_data);
     fmt::print("high speed reg = {}\n", reg);
 
-    reg = ModBusData_Write_And_Read(SLAVE, WRITEADDRESS, WRITENB, write_data, READADDRESSL, 1, read_data);
-    fmt::print("low speed reg = {}\n\n", reg);
+    // reg = ModBusData_Write_And_Read(SLAVE, WRITEADDRESS, WRITENB, write_data, READADDRESSL, 1, read_data);
+    // fmt::print("low speed reg = {}\n\n", reg);
 
     // if(reg != -1)
     // {
