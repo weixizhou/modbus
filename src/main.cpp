@@ -16,6 +16,20 @@
  * W121 + R125->125FPS
 */
 
+uint16_t get_sys_time_ms(void)
+{
+    uint16_t time_ms = 0;
+    struct timeval sys_current_time;
+
+    gettimeofday(&sys_current_time, NULL);
+    time_ms = ((uint16_t)sys_current_time.tv_sec*1000000 + sys_current_time.tv_usec) / 1000;
+
+    return time_ms;
+}
+
+
+
+
 
 /*
 ** FUNCTION
@@ -28,34 +42,53 @@
 * 7 --> 100+86 
 */
 
+// // 正常数据
+// #define SLAVE      SLAVE_7
+// #define WRITENB    WRITENUMBER_7
+// #define WRITEADDR  0x01
+// #define READNB     READNUMBER_7
+// #define READADDR   READADDRESSH
 
+
+// 调试
 #define SLAVE      SLAVE_4
-#define READADDR   READADDRESSH
-#define WRITEADDR  WRITEADDRESS
-#define READNB     READNUMBER_5
 #define WRITENB    WRITENUMBER_5
+#define WRITEADDR  WRITEADDRESS
 
-void delta_data()
+
+// // 高频1
+// #define READNB     74
+// #define READADDR   0x03
+
+// // 高频2
+// #define READNB     14
+// #define READADDR   0x01
+
+// 低频
+#define READNB     12
+#define READADDR   0x02
+
+int delta_data()
 {
     uint16_t read_data[READNB] = {0};   // 存储读取数据buf
     uint16_t write_data[WRITENB] = {0}; // 存储发送数据buf
 
     int reg = ModBusData_Write_And_Read(SLAVE, WRITEADDRESS, WRITENB, write_data, READADDR, READNB, read_data);
-    fmt::print("high speed reg = {}\n", reg);
 
-    // reg = ModBusData_Write_And_Read(SLAVE, WRITEADDRESS, WRITENB, write_data, READADDRESSL, 1, read_data);
-    // fmt::print("low speed reg = {}\n\n", reg);
+    fmt::print("reg = {}\n", reg);
 
-    // if(reg != -1)
-    // {
-    //     CALC_FPS("modbus");
+    if(reg != -1)
+    {
+        // CALC_FPS("modbus");
         
-    //     for (int i = 0; i < 100; i++)
-    //     {
-    //         fmt::print("data {} = {}\n", i, read_data[i]);
-    //     }
-    //     fmt::print("\n");
-    // }
+        // for (auto data : read_data)
+        // {
+        //     fmt::print("{:X}-{:d}\t ", data, data);
+        // }
+        // fmt::print("\n\n");
+    }
+
+    return 0;
 
 }
 
@@ -74,3 +107,30 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+
+
+// #include <iostream>
+// #include <vector>
+// #include <stdio.h>
+// #include <string.h>
+ 
+// int main()
+// {
+//     uint32_t chip_id = 10685936;
+
+//     std::vector<uint8_t> testvector;
+
+//     testvector.resize(sizeof(chip_id));
+
+//     // testvector.push_back(chip_id);
+
+//     std::memcpy(&testvector.data()[0], &chip_id, sizeof(chip_id));
+
+//     // 以32进制输出testvector
+//     for (auto data : testvector)
+//     {
+//         fmt::print("{:x} - ", data);
+//         fmt::print("{:d} - ", data);
+//     }
+//     fmt::print("\n\n");
+// }

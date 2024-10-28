@@ -7,6 +7,7 @@
 #include <errno.h>
 #include <iostream>
 #include <stdbool.h>
+#include <sys/time.h>
 #include "ModbusData.h"
 
 #define FMT_HEADER_ONLY
