@@ -7,6 +7,7 @@
 #include <errno.h>
 #include <iostream>
 #include <stdbool.h>
+#include "config.hpp"
 #include <sys/time.h>
 #include "ModbusData.h"
 
