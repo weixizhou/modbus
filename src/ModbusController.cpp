@@ -2,6 +2,20 @@
 #include "ModbusController.hpp"
 
 
+// 数据大小端转换
+uint16_t ModBusController::swapEndian_U16(uint16_t value)
+{
+    return (value << 8) | (value >> 8);
+}
+
+
+uint32_t ModBusController::swapEndian_U32(uint32_t value) {
+    return ((value >> 24) & 0x000000FF) |
+           ((value >> 8) & 0x0000FF00) |
+           ((value << 8) & 0x00FF0000) |
+           ((value << 24) & 0xFF000000);
+}
+
 
 int ModBusController::ModBusController_Setup(const char *device, int baud)
 {
@@ -68,6 +82,21 @@ int ModBusController::ModBusData_Write_And_Read(int slave, int write_addr, int w
 
 
 
+void ModBusController::showInfo(const std::string &info, uint8_t base)
+{
+	if (base == 16)
+	{
+		fmt::print("0x{:X}\n", std::stoi(info, nullptr, 10)); // 十六进制输出
+	}
+	else if (base == 8)
+	{
+		fmt::print("0{:o}\n", std::stoi(info, nullptr, 10)); // 八进制输出
+	}
+	else
+	{
+		fmt::print("{}\n", info); // 默认输出
+	}
+}
 
 
 

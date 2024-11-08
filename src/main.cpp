@@ -11,29 +11,21 @@ __global_variable__ _global_variable_, *global_variable = &_global_variable_;
 int main(int argc, char *argv[])
 {
 
-    global_variable->modbuscontroller = new ModBusController("/dev/ttyUSB1", 1500000);
-
-    uint32_t last_time = getPlatformTicks();
+    global_variable->modbuscontroller = new ModBusController(MODBUS_DEVICE, MODBUS_BAUD);
 
     while (true)
     {
 
+        // fmt::printf(global_variable->modbuscontroller->modbustest->delta_data_all());
 
-        global_variable->modbuscontroller->modbustest->delta_data();
+        // fmt::printf(global_variable->modbuscontroller->modbustest->delta_data_h_1());
 
+        fmt::printf(global_variable->modbuscontroller->modbustest->delta_data_h_2());
 
-        // delta_data();
+        // fmt::printf(global_variable->modbuscontroller->modbustest->delta_data_l_1());
 
-        // delta_data_h_1();
+        // fmt::printf(global_variable->modbuscontroller->modbustest->delta_data_l_1());
 
-        // delta_data_h_2();
-
-        // if (getPlatformTicks() - last_time > 3000)
-        // {
-            // delta_data_l_1();
-
-        //     last_time = getPlatformTicks();
-        // }
     }
 
     global_variable->modbuscontroller->~ModBusController();
