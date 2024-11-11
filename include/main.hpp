@@ -36,11 +36,6 @@
 typedef struct
 {
 
-	ModBusController *modbuscontroller;
-
-	// ModBusController *ModBusController("/dev/ttyUSB0", 1500000);
-
-
 } __global_variable__;
 
 

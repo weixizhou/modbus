@@ -22,11 +22,11 @@ std::string ModBusTest::delta_data_all()
 
 	int reg = modbuscontroller.ModBusData_Write_And_Read(SLAVE, WRITEADDR, Write_Data_All.size(), Write_Data_All.data(), READADDR, Read_Data_All.size(), Read_Data_All.data());
 	
-	#ifdef TEST_REG
+	#ifdef TEST_REG_
 		fmt::print("delta_data_all reg = {}\n", reg);
 	#endif
 
-	#ifdef TEST_DEBUG
+	#ifdef TEST_DEBUG_
 		std::string str;
 			for (uint8_t i = 0; i < Read_Data_All.size(); i++)
 			{
@@ -84,7 +84,7 @@ std::string ModBusTest::delta_data_h_2()
 		fmt::print("delta_data_h_1 reg = {}\n", reg_H_2);
 	#endif
 
-	#ifdef TEST_DEBUG_
+	#ifdef TEST_DEBUG
 		std::string str;
 			for (uint8_t i = 0; i < Read_Data_H_2.size(); i++)
 			{
@@ -111,7 +111,7 @@ std::string ModBusTest::delta_data_l_1()
 		fmt::print("delta_data_l_1 reg = {}\n", reg_L_1);
 	#endif
 
-	#ifdef TEST_DEBUG_
+	#ifdef TEST_DEBUG
 		std::string str;
 			for (uint8_t i = 0; i < Read_Data_L_1.size(); i++)
 			{

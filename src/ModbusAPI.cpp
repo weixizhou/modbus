@@ -3,35 +3,80 @@
 
 
 
-LedData ModBusAPI::getLedRGB()
-{
+// LedData ModBusAPI::getLedRGB()
+// {
     
-}
+// }
 
 
-LedData ModBusAPI::getLedMode()
-{
+// LedData ModBusAPI::getLedMode()
+// {
 
-}
+// }
 
-IMUData ModBusAPI::getIMUData()
-{
+
+// IMUData ModBusAPI::getIMUData()
+// {
     
-}
+// }
 
 
-BatteryData ModBusAPI::getBatteryData()
-{
+// BatteryData ModBusAPI::getBatteryData()
+// {
     
-}
+// }
 
 
-GamepadData ModBusAPI::getGamepadData()
-{
+// GamepadData ModBusAPI::getGamepadData()
+// {
     
-}
+// }
 
-EspSystemStatus ModBusAPI::getEspSystemStatus()
-{
+
+// MotorFeedbackData ModBusAPI::getMotorFeedback(std::pair<uint8_t, uint8_t> set_info)
+// {
     
-}
+// }
+
+
+// std::tuple<uint8_t, uint8_t> ModBusAPI::setLedRGB()
+// {
+
+// }
+
+
+// std::tuple<uint8_t, uint8_t> ModBusAPI::setLedMode()
+// {
+
+// }
+
+
+// std::tuple<uint8_t, uint8_t> ModBusAPI::setEspSystemDevice()
+// {
+
+// }
+
+
+// std::pair<uint8_t, uint8_t> ModBusAPI::setMotorControl(MotorControlData motorcontroldata)
+// {
+    
+// }
+
+
+// EspSystemStatus ModBusAPI::getEspSystemStatus()
+// {
+    
+// }
+
+
+// std::array<uint16_t, READNB> ModBusAPI::getAllData()
+// {
+    
+// }
+
+
+// std::tuple<uint8_t, uint8_t> setAllData()
+// {
+
+// }
+

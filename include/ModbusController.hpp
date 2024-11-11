@@ -4,6 +4,7 @@
 
 #include <string>
 #include <thread>
+#include <vector>
 #include <cstdint>
 #include <cstdint>
 #include <cstring>
@@ -18,37 +19,57 @@
 #include "modbus/modbus-rtu.h"
 
 
-class ModBusAPI;
-class ModBusTest;
+// class ModBusAPI;
+// class ModBusTest;
 class ModBusController;
 
 
 /* API调用项
  * 
+ * All
  * IMU
  * LedMode
  * Battery
  * Gamepad
  *
 */
-
 class ModBusAPI
 {
 
     public:
+        ModBusAPI(ModBusController &controller) : modbuscontroller(controller) {} // 构造函数中接收 ModBusController 的引用
 
-        LedData getLedRGB();
+        // 0x8E
+        LedData getLedRGB(std::tuple<uint8_t, uint8_t>);
 
-        IMUData getIMUData();
+        IMUData getIMUData(std::tuple<uint8_t, uint8_t>);
 
-        LedData getLedMode();
+        LedData getLedMode(std::tuple<uint8_t, uint8_t>);
 
-        BatteryData getBatteryData();
+        BatteryData getBatteryData(std::tuple<uint8_t, uint8_t>);
+
+        GamepadData getGamepadData(std::tuple<uint8_t, uint8_t>);
+
+        EspSystemStatus getEspSystemStatus(std::tuple<uint8_t, uint8_t>);
+
+        MotorFeedbackData getMotorFeedback(std::pair<uint8_t, uint8_t>);
+
+
+        std::pair<uint8_t, uint8_t> setMotorControl(MotorControlData motorcontroldata);
+
+        std::tuple<uint8_t, uint8_t> setLedRGB(LedData::RGB);
+
+        std::tuple<uint8_t, uint8_t> setLedMode(LedData);
+
+
+        // 0x8F
+        std::array<uint16_t, READNB> getAllData();
         
-        GamepadData getGamepadData();
+        std::tuple<uint8_t, uint8_t> setAllData(std::array<uint16_t, WRITENB>);
 
-        EspSystemStatus getEspSystemStatus();
+    private:
 
+        ModBusController& modbuscontroller; // 保存对 ModBusController 的引用
 
 
 
@@ -67,6 +88,7 @@ class ModBusTest
 {
 
     public:
+        ModBusTest(ModBusController &controller) : modbuscontroller(controller) {} // 使用构造函数传入 ModBusController 的引用
 
         std::string delta_data_all();
 
@@ -75,7 +97,6 @@ class ModBusTest
         std::string delta_data_h_1();
 
         std::string delta_data_h_2();
-        ModBusTest(ModBusController &controller) : modbuscontroller(controller) {} // 使用构造函数传入 ModBusController 的引用
 
     private:
 
@@ -106,18 +127,27 @@ class ModBusTest
 /*协议控制项*/
 class ModBusController
 {
+    friend class ModBusAPI;
 
     friend class ModBusTest;
 
     public:
 
+        ModBusAPI *modbusapi;
+
         ModBusTest *modbustest;
+
+        ModBusController(const char *device, int baud) :
+            modbusapi(new ModBusAPI(*this)),
+            modbustest(new ModBusTest(*this))
+        {
+            ModBusController_Setup(device, baud);
+        }
 
         ModBusController();
 
         ~ModBusController();
-        ModBusController(const char *device, int baud) : modbustest(new ModBusTest(*this)){ ModBusController_Setup(device, baud); }
-        
+
         int ModBusData_Write_And_Read(int slave, int write_addr, int write_nb, const uint16_t *write_data, int read_addr, int read_nb, uint16_t *read_buf);
 
 

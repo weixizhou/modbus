@@ -62,6 +62,9 @@ ModBusController::ModBusController()
 
 ModBusController::~ModBusController()
 {
+	delete modbustest;
+	delete modbusapi;
+
 	ModBusController_Exit();
 }
 

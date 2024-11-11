@@ -43,6 +43,10 @@
 
 
 
+// 电机数量
+#define MOTORNUM 14
+
+
 
 #define TEST_REG_
 #define TEST_DEBUG_
@@ -85,14 +89,67 @@ struct IMUData
 
 struct LedData 
 {
-    // RGB
+    // 创建存储RGB三通道值的数组，灯数为6
+    struct RGB 
+    {
+        union 
+        {
+            struct 
+            {
+                union 
+                {
+                    uint8_t r;    ///< Red channel value
+                    uint8_t red;  ///< @copydoc r
+                };
+                union 
+                {
+                    uint8_t g;      ///< Green channel value
+                    uint8_t green;  ///< @copydoc g
+                };
+                union 
+                {
+                    uint8_t b;     ///< Blue channel value
+                    uint8_t blue;  ///< @copydoc b
+                };
+            };
+            /// Access the red, green, and blue data as an array.
+            /// Where:
+            /// * `raw[0]` is the red value
+            /// * `raw[1]` is the green value
+            /// * `raw[2]` is the blue value
+            uint8_t raw[3];
+        };
+    };
 
-
-
+    RGB rgb[6];
 
     uint16_t led_mode;
-
 };
+
+
+struct MotorControlData
+{
+    std::array<uint16_t, MOTORNUM> Position;
+    
+    std::array<uint16_t, MOTORNUM> Torque;
+
+    std::array<uint16_t, MOTORNUM> ACC;
+    
+    std::array<uint16_t, MOTORNUM> Speed;
+};
+
+
+struct MotorFeedbackData
+{
+    std::array<uint16_t, MOTORNUM> Position;
+    
+    std::array<uint16_t, MOTORNUM> Load;
+
+    std::array<uint16_t, MOTORNUM> Current;
+    
+    std::array<uint16_t, MOTORNUM> Temper;
+};
+
 
 
 struct EspSystemStatus
