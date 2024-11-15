@@ -1,7 +1,7 @@
 
 
 #define MODBUS_BAUD    1500000
-#define MODBUS_DEVICE  "/dev/ttyUSB1"
+#define MODBUS_DEVICE  "/dev/ttyUSB0"
 
 // 一次性数据收发调试
 #define SLAVE           0x8F
