@@ -8,7 +8,7 @@
 #include <iostream>
 #include <stdbool.h>
 #include <sys/time.h>
-#include "ModbusController.hpp"
+#include "ModBusRTUController.hpp"
 
 #define FMT_HEADER_ONLY
 #include "fmt/core.h"

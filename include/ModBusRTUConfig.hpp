@@ -1,6 +1,6 @@
 
 
-#define MODBUS_BAUD    1500000
+#define MODBUS_BAUD    921600
 #define MODBUS_DEVICE  "/dev/ttyUSB0"
 
 // 一次性数据收发调试

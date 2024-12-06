@@ -11,22 +11,24 @@ __global_variable__ _global_variable_, *global_variable = &_global_variable_;
 int main(int argc, char *argv[])
 {
 
-    ModBusController *modbuscontroller = new ModBusController(MODBUS_DEVICE, MODBUS_BAUD);
+    ModBusRTUController ModBusRTUController;
+
+    ModBusRTUController.ModBusRTU_Setup(MODBUS_DEVICE, MODBUS_BAUD);
 
     while (true)
     {
 
-        fmt::printf(modbuscontroller->modbustest->delta_data_all());
+        fmt::printf(ModBusRTUController.ModBusRTU_Test_Data_All());
 
-        // fmt::printf(modbuscontroller->modbustest->delta_data_h_1());
+        // fmt::printf(ModBusRTUController->modbustest->ModBusRTU_Test_Data_H_1());
 
-        // fmt::printf(modbuscontroller->modbustest->delta_data_h_2());
+        // fmt::printf(ModBusRTUController->modbustest->ModBusRTU_Test_Data_H_2());
 
-        // fmt::printf(modbuscontroller->modbustest->delta_data_l_1());
+        // fmt::printf(ModBusRTUController->modbustest->ModBusRTU_Test_Data_L_1());
 
     }
 
-    modbuscontroller->~ModBusController();
+    ModBusRTUController.ModBusRTU_Exit();
 
     return 0;
 }
